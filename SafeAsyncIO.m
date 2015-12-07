@@ -20,7 +20,6 @@
 
 @implementation SafeAsyncIO
 
-
 + (NSString *)uniqueKeyWithRunner:(id<NSObject>)runner alias:(NSString *)alias
 {
     NSString *runnersKey = [@(runner.hash) stringValue];
@@ -31,11 +30,10 @@
     return [NSString stringWithFormat:@"%@-%@", runnersKey, alias];
 }
 
-+ (BOOL)isIOProcessRunningWithUniqueKey:(NSString *)uniqueKey
++ (BOOL)checkProcessRunningWithUniqueKey:(NSString *)uniqueKey
 {
-    return YES;
+    return !![[self SafeAsyncIOStore] objectForKey:uniqueKey];
 }
-
 
 + (BOOL)runIOProcess:(SafeAsyncIOCallback)process
            uniqueKey:(NSString *)uniqueKey
@@ -64,7 +62,7 @@
          uniqueKey:(NSString *)uniqueKey
    viewsToBeLocked:(NSArray *)viewsToBeLocked
 {
-    if ([[self SafeAsyncIOStore] objectForKey:uniqueKey]) {
+    if ([self checkProcessRunningWithUniqueKey:uniqueKey]) {
         return NO;
     }
 

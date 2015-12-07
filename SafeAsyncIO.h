@@ -15,7 +15,7 @@ typedef void(^SafeAsyncIOPrePostCallback)(void);
 
 + (NSString *)uniqueKeyWithRunner:(id<NSObject>)runner alias:(NSString *)alias;
 
-+ (BOOL)isIOProcessRunningWithUniqueKey:(NSString *)uniqueKey;
++ (BOOL)checkProcessRunningWithUniqueKey:(NSString *)uniqueKey;
 
 + (BOOL)runIOProcess:(SafeAsyncIOCallback)process
            uniqueKey:(NSString *)uniqueKey;
